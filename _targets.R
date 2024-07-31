@@ -21,7 +21,7 @@ tar_option_set(
 tar_source("R")
 # tar_source("other_functions.R") # Source other scripts as needed.
 
-# static branching over seasons
+# running over seasons
 seasons = 2000:2023
 
 # Replace the target list below with your own:
@@ -29,7 +29,7 @@ list(
     ### cfbd data
     # calendars
     tar_target(
-        cfbd_calendars_tbl,
+        cfbd_calendar_tbl,
         map_df(seasons,
                ~ cfbd_calendar(year = .x)) |>
             as_tibble()
@@ -167,14 +167,6 @@ list(
                              season_type = 'both') |>
                    add_season(year = .x))
     ),
-    # plays
-    tar_target(
-        cfbd_plays_tbl,
-        map_df(seasons,
-               ~ cfbd_plays(year = .x, 
-                            season_type = 'both') |>
-                   add_season(year = .x))
-    ),
     ### now get espn data
     # calendar
     tar_target(
@@ -212,5 +204,31 @@ list(
             ~ espn_ratings_fpi(year = .x) |>
                 as_tibble()
         )
+    ),
+    # dynamic branch over seasons, weeks, and season type to get play by play
+    tar_target(
+        cfbd_season_week_games,
+        cfbd_calendar_tbl |>
+            filter(season_type %in% c('regular', 'postseason')) |>
+            select(season, week, season_type) |>
+            distinct() |>
+            group_by(season, week, season_type) |>
+            tar_group(),
+        iteration = "group"
+    ),
+    # get cfbd plays for each branch
+    tar_target(
+        cfbd_plays_tbl,
+        get_cfbd_plays(cfbd_season_week_games),
+        pattern = map(cfbd_season_week_games),
+        error = "null"
+    ),
+    # get cleaned cfbd pbp (cfbfastR) for each branchi
+    tar_target(
+        cfbd_pbp_data_tbl,
+        get_cfbd_pbp_data(cfbd_season_week_games |> 
+                              tail()),
+        pattern = map(cfbd_season_week_games),
+        error = "null"
     )
 )
