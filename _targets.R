@@ -142,6 +142,23 @@ list(
                                           end_year = .x) |>
                    add_season(year = .x))
     ),
+    # player usage
+    tar_target(
+        cfbd_player_usage_tbl,
+        map_df(
+            seasons[seasons>2012],
+            ~ cfbd_player_usage(year =.x) |>
+                as_tibble()
+        )
+    ),
+    # player returning
+    tar_target(
+        cfbd_player_returning_tbl,
+        map_df(seasons,
+               ~ cfbd_player_returning(year = .x) |>
+                   as_tibble()
+        )
+    ),
     # drives
     tar_target(
         cfbd_drives_tbl,
@@ -186,6 +203,15 @@ list(
             filter(play_by_play_available == T) |>
             distinct(game_id) |>
             pull()
+    ),
+    # espn fpi
+    tar_target(
+        espn_ratings_fpi_tbl,
+        map_df(
+            seasons[seasons > 2004],
+            ~ espn_ratings_fpi(year = .x) |>
+                as_tibble()
+        )
     )
 )
 
