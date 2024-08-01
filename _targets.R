@@ -208,9 +208,8 @@ list(
     # dynamic branch over seasons, weeks, and season type to get play by play
     tar_target(
         cfbd_season_week_games,
-        cfbd_calendar_tbl |>
-            filter(season_type %in% c('regular', 'postseason')) |>
-            select(season, week, season_type) |>
+        cfbd_game_info_tbl |>
+            select(season, week, season_type) |> 
             distinct() |>
             group_by(season, week, season_type) |>
             tar_group(),
@@ -226,8 +225,7 @@ list(
     # get cleaned cfbd pbp (cfbfastR) for each branchi
     tar_target(
         cfbd_pbp_data_tbl,
-        get_cfbd_pbp_data(cfbd_season_week_games |> 
-                              tail()),
+        get_cfbd_pbp_data(cfbd_season_week_games),
         pattern = map(cfbd_season_week_games),
         error = "null"
     )
