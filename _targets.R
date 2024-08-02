@@ -7,6 +7,12 @@
 library(targets)
 library(tarchetypes) # Load other packages as needed.
 
+# authenticate
+googleCloudStorageR::gcs_auth(json_file = Sys.getenv('GCS_AUTH_FILE'))
+
+# set default bucket
+suppressMessages({googleCloudStorageR::gcs_global_bucket(bucket = "cfb_models")})
+
 # Set target options:
 tar_option_set(
     packages = c("cfbfastR",
@@ -14,7 +20,16 @@ tar_option_set(
                  "tidyr",
                  "purrr"),
     format = "qs",
-    memory = "transient"
+    memory = "transient",
+    resources = 
+        tar_resources(
+            gcp = tar_resources_gcp(
+                bucket = "cfb_models",
+                predefined_acl = "bucketLevel",
+                prefix = "data"
+            )
+        ),
+    repository = "gcp"
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
