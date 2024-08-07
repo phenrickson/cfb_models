@@ -226,6 +226,7 @@ list(
         cfbd_game_info_tbl |>
             select(season, week, season_type) |> 
             distinct() |>
+            filter(season_type %in% c('regular', 'postseason')) |>
             group_by(season, week, season_type) |>
             tar_group(),
         iteration = "group"
