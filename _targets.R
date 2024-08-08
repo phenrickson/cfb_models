@@ -238,11 +238,20 @@ list(
         pattern = map(cfbd_season_week_games),
         error = "null"
     ),
-    # get cleaned cfbd pbp (cfbfastR) for each branchi
+    # get cleaned cfbd pbp (cfbfastR) for each branch
     tar_target(
         cfbd_pbp_data_tbl,
         get_cfbd_pbp_data(cfbd_season_week_games),
         pattern = map(cfbd_season_week_games),
         error = "null"
+    ),
+    # prepare pbp data using custom functions
+    tar_target(
+        prepared_pbp,
+        cfbd_pbp_data_tbl |> 
+            filter(season > 2005) |>
+            filter_plays() |>
+            prepare_pbp() |>
+            add_score_events()
     )
 )
