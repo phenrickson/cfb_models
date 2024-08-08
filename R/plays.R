@@ -82,17 +82,110 @@ prepare_plays = function(data) {
         )
 }
 
+add_play_time = function(data) {
+
+    data |>
+        mutate(
+            half = case_when(
+                period %in% c(1, 2) ~ 1,
+                period %in% c(3, 4) ~ 2
+             ),
+             clock_seconds = case_when(
+                clock.minutes > 15 & clock.seconds == 0 ~ clock.minutes,
+                clock.minutes == 15 & clock.seconds > 0 ~ 0,
+                TRUE ~ clock.seconds),
+            clock_minutes = case_when(
+                clock.minutes > 15 ~ 0,
+                TRUE ~ clock.minutes),
+            seconds_in_half = case_when(
+                period == 1 | period == 3 ~ ((15 + clock_minutes) * 60) + clock_seconds,
+                period == 2 | period == 4 ~ (clock_minutes * 60) + clock_seconds
+            )
+        )
+}
+
+clean_yards = function(data) {
+
+    clean_yard_line <- function(data) {
+
+        data |>
+            mutate(
+                yard_line_str = as.character(yard_line),
+                yard_line = case_when(
+                    yard_line > 100 ~ as.numeric(substr(yard_line_str, 2, nchar(yard_line_str))),
+                    TRUE ~ yard_line
+                ),
+            ) |>
+            select(-yard_line_str)
+    }
+    
+    # recalculate yards_to_goal
+    clean_yards_to_goal = function(data) {
+        data |>
+            mutate(yards_to_goal = case_when(
+                offense == home ~ 100-yard_line,
+                offense != home ~ yard_line)
+            )
+        }
+                    
+    data |>
+        clean_yard_line() |>
+        clean_yards_to_goal()
+
+    }
+
+clean_timeouts = function(data) {
+
+    data |>
+        mutate(
+            across(c(offense_timeouts, defense_timeouts), ~ case_when(.x <0 ~ 0, TRUE ~ .x))
+        )
+}
+
+clean_distance = function(data) { 
+
+    data |>
+        mutate(
+            distance = case_when(
+                distance <= 0 & down == 1 ~ 10,
+                TRUE ~ distance
+            )
+        ) |>
+        group_by(game_id, drive_id) |>
+        mutate(
+            distance = case_when(
+                distance <=0 & down == 1 ~ 10,
+                distance <= 0 | distance > 100 ~ lag(distance, 1),
+                TRUE ~ distance
+             )
+        ) |>
+        ungroup()
+}
+
+filter_play_type = function(data) { 
+
+    data |>
+        filter(!(play_type %in% c('End of Half', 'End of Period', 'Timeout'))) |>
+        filter(!(grepl("Kickoff", play_type)))
+        
+}
+
+filter_plays = function(data) {
+
+    data |>
+        filter(down %in% c(1, 2, 3, 4)) |>
+        filter(period %in% c(1, 2, 3, 4))
+}
+
+# implement pbp functions
 prepare_pbp = function(data) {
     
     data |>
-        mutate(
-            play_id = as.numeric(id_play),
-            half = case_when(period %in% c(1, 2) ~ 1,
-                             period %in% c(3, 4) ~ 2)
-        ) |>
+        add_play_time() |>
+        filter_play_type() |>
         select(
             season,
-            play_id,
+            play_id = id_play,
             game_id,
             offense = offense_play,
             defense = defense_play,
@@ -106,8 +199,9 @@ prepare_pbp = function(data) {
             half,
             period,
             wallclock,
-            clock_minutes = clock.minutes,
-            clock_seconds = clock.seconds,
+            clock_minutes,
+            clock_seconds,
+            seconds_in_half,
             offense_timeouts,
             defense_timeouts,
             yard_line,
@@ -117,11 +211,12 @@ prepare_pbp = function(data) {
             scoring,
             play_type,
             play_text,
-            drive_result,
-            drive_is_home_offense
-        )
+            any_of(c("drive_result", "drive_is_home_offense"))
+        ) |>
+        clean_yards() |>
+        clean_distance() |> 
+        clean_timeouts()
 }
-
 
 penalty_text <- function() {
     
@@ -658,7 +753,7 @@ clean_play_type = function(data) {
     data |>
         # add change of possession
         group_by(game_id) |>
-        arrange(play_id, drive_id) |>
+        arrange(game_id, play_id, drive_id) |>
         mutate(
             change_of_poss = case_when(
                 offense != dplyr::lead(offense, 1) & (! play_text %in% end_text() | is.na(dplyr::lead(play_type, 1))) ~ 1,
@@ -830,7 +925,7 @@ add_score_events = function(data, td_text = "TD$", fg_text = "FG$", safety_text 
         ) |>
         # add next score event
         group_by(game_id) |>
-        arrange(period, half, drive_number, play_number) |>
+        arrange(game_id, period, half, drive_number, play_number) |>
         # identify last drive of each half
         group_by(game_id, half) |>
         mutate(

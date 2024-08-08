@@ -1,13 +1,14 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|44851cbda57087c9|||||||||||||||
+.Random.seed|object|5f53547f8bb43e06|||||||||||||||
 add_elo_predictions|function|e3eb35fb1b7ad6e4|||||||||||||||
 add_kick_plays|function|ad99b06c35ea5ce4|||||||||||||||
 add_pass_plays|function|1baea77cea56c893|||||||||||||||
 add_penalty_plays|function|e5c5b6c3a9735107|||||||||||||||
+add_play_time|function|a3e05dadad3a523d|||||||||||||||
 add_punt_plays|function|ad7b93ae55fc393c|||||||||||||||
 add_rush_plays|function|be5c06dcb9d62cc1|||||||||||||||
 add_sack_plays|function|3e15d3167620366e|||||||||||||||
-add_score_events|function|bb82c90afc909e3d|||||||||||||||
+add_score_events|function|36a07efb6bb2c8e1|||||||||||||||
 add_scoring_plays|function|856b096a00167981|||||||||||||||
 add_season|function|1605e7988d781fd4|||||||||||||||
 add_spread_features|function|228372fa985f4722|||||||||||||||
@@ -2507,8 +2508,11 @@ cfbd_team_roster_by_season_2022|stem|4b4ecb7ece687cfe|55698f65b115dc7c|806e947bb
 cfbd_team_roster_by_season_2023|stem|50685fcb4c1a9ff7|44fb28f817532887|806e947bbb996f89|-1688660247||t19934.9029679421s|b4503057770588a6|672387|qs|local|vector|||2.687||
 cfbd_team_roster_tbl|stem|b0d0cf83153da6d2|1437991197b063f9|b808fbb59aab0574|-2039255155|bucket=cfb_models*key=data/objects/cfbd_team_roster_tbl*version=1722620631675589|t19937.7387729375s||5029505|qs|gcp|vector|||30.589||
 cfbd_team_talent_tbl|stem|69e3df25e29aeac7|4a2b829a7a795fe6|9ae9610dd062cb8f|-220804107|bucket=cfb_models*key=data/objects/cfbd_team_talent_tbl*version=1722618911352914|t19937.7188774838s||16875|qs|gcp|vector|||16.254||
-clean_play_type|function|42b8dea9fc6bbf88|||||||||||||||
+clean_distance|function|8c22ad83aadcc2a6|||||||||||||||
+clean_play_type|function|76da046ba13e0093|||||||||||||||
 clean_plays_func|function|4aabe602e28ec9dc|||||||||||||||
+clean_timeouts|function|ea6843e418eee0a0|||||||||||||||
+clean_yards|function|bdb05f04bcf60d18|||||||||||||||
 combined|object|874dd1d8ba164815|||||||||||||||
 defense_score_text|function|d1140ba21ee17dc9|||||||||||||||
 dynamic|object|964437912578b57e|||||||||||||||
@@ -2519,6 +2523,8 @@ espn_cfb_game_ids|stem|318813f8ffe950ce|002311834b5b3f67|770cca86d52f3267|-13953
 espn_cfb_pbp|stem||3451864c923eb041|56e2df2b8f2990bf|1818930545||t19935.6942739343s||0|qs|local|vector|||722.252||ℹ In index 816.Caused by error in espn_cfb_pbp object plays_df not found
 espn_cfb_schedule_tbl|stem|cf4bd4e8ff9a992c|1a9d40a8a493cd1b|9ae9610dd062cb8f|1538359559|bucket=cfb_models*key=data/objects/espn_cfb_schedule_tbl*version=1722620598570852|t19937.7384065192s||1192025|qs|gcp|vector|||73.807||
 espn_ratings_fpi_tbl|stem|9028c94d3776c57d|e5383b1b50f9fca8|9ae9610dd062cb8f|-1074024033|bucket=cfb_models*key=data/objects/espn_ratings_fpi_tbl*version=1722618957429176|t19937.7194089927s||30466|qs|gcp|vector|||4.611||
+filter_play_type|function|e1363a13cfafa77d|||||||||||||||
+filter_plays|function|ca50eac0c45804a7|||||||||||||||
 get_cfbd_pbp_data|function|782a337b1640bece|||||||||||||||
 get_cfbd_plays|function|be7fc272939e2e8b|||||||||||||||
 get_expected_score|function|9fc6b73f4ef5daf5|||||||||||||||
@@ -2534,8 +2540,9 @@ offense_score_text|function|1c19701ab59e9dfb|||||||||||||||
 penalty_details_text|function|c6269b06f2b46fd7|||||||||||||||
 penalty_text|function|93229a4eddcd7124|||||||||||||||
 prepare_drives|function|0cd66ed59e1e3d78|||||||||||||||
-prepare_pbp|function|87b6a0b9bd2586fd|||||||||||||||
+prepare_pbp|function|f05f08f432e36b17|||||||||||||||
 prepare_plays|function|1e408c68a84dcc9e|||||||||||||||
+prepared_pbp|stem|6ff891eb83aa0a66|04663ca1ae0008a5|c505ed30a6e72aa5|1727894588|bucket=cfb_models*key=data/objects/prepared_pbp*version=1723141206293008|t19943.7607122046s||60418317|qs|gcp|vector|||91.142||
 punt_text|function|2eab2f1afb0e0a03|||||||||||||||
 score_text|function|2beaea614d9d0fbe|||||||||||||||
 seasons|object|a3a5673ed49c208e|||||||||||||||
