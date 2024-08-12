@@ -35,7 +35,7 @@ tar_option_set(
     )
   ),
   controller =
-    crew_controller_local(workers = 7),
+  crew_controller_local(workers = 7),
   repository = "gcp"
 )
 
@@ -129,7 +129,7 @@ list(
         season = seasons,
         type = c("regular", "postseason")
       )
-
+      
       map2_df(
         .x = tmp$season,
         .y = tmp$type,
@@ -148,7 +148,7 @@ list(
         season = seasons,
         type = c("regular", "postseason")
       )
-
+      
       map2_df(
         .x = tmp$season,
         .y = tmp$type,
@@ -334,33 +334,30 @@ list(
   tar_target(
     elo_tuning_results,
     prepared_games |>
-      tune_elo_ratings(params = elo_params),
+    tune_elo_ratings(params = elo_params),
     pattern = map(elo_params),
     iteration = "vector",
-    repository = "local"
+    cue = tar_cue(mode = "never")
   ),
   tar_target(
     elo_metrics,
     elo_tuning_results |>
-      select(game_outcomes, settings) |>
-      # prioritize games since 2000
-      mutate(game_outcomes = map(game_outcomes, ~ .x |> filter(season >= 2000))) |>
-      assess_elo_ratings()
+    select(game_outcomes, settings) |>
+    # prioritize games since 2000
+    mutate(game_outcomes = map(game_outcomes, ~ .x |> filter(season >= 2000))) |>
+    assess_elo_ratings()
   ),
   tar_target(
     elo_best_params,
     elo_metrics |>
-      select(overall) |>
-      unnest() |>
-      select_elo_params(),
+    select(overall) |>
+    unnest() |>
+    select_elo_params(),
     packages = c("desirability2")
   ),
   tar_target(
     elo_games,
-    elo_tuning_results |>
-      unnest(settings) |>
-      inner_join(elo_best_params |>
-        select(home_field_advantage, reversion, k, v)
-      )
+    prepared_games |>
+    tune_elo_ratings(params = elo_best_params)
   )
 )
