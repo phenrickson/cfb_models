@@ -63,15 +63,14 @@ tune_elo_ratings <- function(games, params) {
 }
 
 assess_elo_ratings <-
-  function(
-      data,
-      metrics = yardstick::metric_set(
-        yardstick::roc_auc,
-        yardstick::brier_class,
-        yardstick::mn_log_loss,
-        yardstick::accuracy,
-        yardstick::pr_auc
-      )) {
+  function(data,
+           metrics = yardstick::metric_set(
+             yardstick::roc_auc,
+             yardstick::brier_class,
+             yardstick::mn_log_loss,
+             yardstick::accuracy,
+             yardstick::pr_auc
+           )) {
     tmp <-
       data |>
       select(game_outcomes, settings) |>
@@ -447,17 +446,16 @@ longer_games <- function(data, game_vars = c("game_id", "season_type", "week", "
 
 # simulate future elo ratings
 sim_elo_ratings <-
-  function(
-      games,
-      teams = list(),
-      team_seasons = list(),
-      home_field_advantage,
-      reversion,
-      k,
-      v,
-      ties = F,
-      points_model = points_model,
-      verbose = F) {
+  function(games,
+           teams = list(),
+           team_seasons = list(),
+           home_field_advantage,
+           reversion,
+           k,
+           v,
+           ties = F,
+           points_model = points_model,
+           verbose = F) {
     # define an empty tibble to store the game outcomes
     game_outcomes <- tibble()
 

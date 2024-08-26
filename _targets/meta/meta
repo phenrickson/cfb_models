@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|013e4ba7bb81ec04|||||||||||||||
+.Random.seed|object|d33a119129c9d51e|||||||||||||||
 add_elo_predictions|function|e3eb35fb1b7ad6e4|||||||||||||||
 add_kick_plays|function|ad99b06c35ea5ce4|||||||||||||||
 add_pass_plays|function|1baea77cea56c893|||||||||||||||
@@ -2560,6 +2560,7 @@ espn_cfb_game_ids|stem|318813f8ffe950ce|002311834b5b3f67|770cca86d52f3267|-13953
 espn_cfb_pbp|stem||3451864c923eb041|56e2df2b8f2990bf|1818930545||t19935.6942739343s||0|qs|local|vector|||722.252||ℹ In index 816.Caused by error in espn_cfb_pbp object plays_df not found
 espn_cfb_schedule_tbl|stem|cf4bd4e8ff9a992c|1a9d40a8a493cd1b|9ae9610dd062cb8f|1538359559|bucket=cfb_models*key=data/objects/espn_cfb_schedule_tbl*version=1722620598570852|t19937.7384065192s||1192025|qs|gcp|vector|||73.807||
 espn_ratings_fpi_tbl|stem|9028c94d3776c57d|e5383b1b50f9fca8|9ae9610dd062cb8f|-1074024033|bucket=cfb_models*key=data/objects/espn_ratings_fpi_tbl*version=1722618957429176|t19937.7194089927s||30466|qs|gcp|vector|||4.611||
+exploratory|stem|9cffe7748e56d8b0|854a5daf04036000|881cadeeeccea6e6|-1455750025|test-quarto.html*test-quarto.qmd|t19961.661481582s||760835|file|local|vector|||||_paths_ missing files testquarto.html
 filter_play_type|function|e1363a13cfafa77d|||||||||||||||
 filter_plays|function|ca50eac0c45804a7|||||||||||||||
 get_cfbd_pbp_data|function|782a337b1640bece|||||||||||||||
@@ -2584,6 +2585,7 @@ prepare_plays|function|1e408c68a84dcc9e|||||||||||||||
 prepared_games|stem|02553aa4cc933f0d|e16993b0f41a42e8|3ae1601f37a33e87|1831875253|bucket=cfb_models*key=data/objects/prepared_games*version=1723218996206475|t19944.6643058467s||1238944|qs|gcp|vector|||0.055||
 prepared_pbp|stem|6ff891eb83aa0a66|04663ca1ae0008a5|c505ed30a6e72aa5|1727894588|bucket=cfb_models*key=data/objects/prepared_pbp*version=1723141206293008|t19943.7607122046s||60418317|qs|gcp|vector|||91.142||
 punt_text|function|2eab2f1afb0e0a03|||||||||||||||
+reports|stem|c7ef242ac2369e8c|3d7449bea3e03797|881cadeeeccea6e6|536393307|docs*test-quarto.qmd*_quarto.yml|t19961.6692536864s|6705e2f76ad7da7e|1268060|file|local|vector|||14.265||
 score_text|function|2beaea614d9d0fbe|||||||||||||||
 seasons|object|a3a5673ed49c208e|||||||||||||||
 select_elo_params|function|6903f9afe9c00a9f|||||||||||||||
