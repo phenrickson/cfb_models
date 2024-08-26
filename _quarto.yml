@@ -11,7 +11,9 @@ format:
     code-fold: true
     code-overflow: scroll
     code-summary: 'Show the code'
+    embed-resources: true
     self-contained: true
+    html-math-method: mathjax
     toc: true
     fig-align: center
     theme: cerulean
@@ -21,3 +23,4 @@ format:
           .panel-tabset > .nav-tabs,
           .panel-tabset > .tab-content {border: none;}
           </style>
+css: styles.css
