@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|2a6bf40974a8ef46|||||||||||||||
+.Random.seed|object|492e5c23e9f4e53e|||||||||||||||
 add_elo_predictions|function|e3eb35fb1b7ad6e4|||||||||||||||
 add_kick_plays|function|ad99b06c35ea5ce4|||||||||||||||
 add_pass_plays|function|1baea77cea56c893|||||||||||||||
@@ -2587,7 +2587,7 @@ prepare_plays|function|1e408c68a84dcc9e|||||||||||||||
 prepared_games|stem|02553aa4cc933f0d|e16993b0f41a42e8|3ae1601f37a33e87|1831875253|bucket=cfb_models*key=data/objects/prepared_games*version=1723218996206475|t19944.6643058467s||1238944|qs|gcp|vector|||0.055||
 prepared_pbp|stem|a3038b18cb8f45bb|8421a3bab4896710|23234cd176aec38a|1727894588|bucket=cfb_models*key=data/objects/prepared_pbp*version=1724699868508369|t19961.8040014775s||57076154|qs|gcp|vector|||79.244||
 punt_text|function|2eab2f1afb0e0a03|||||||||||||||
-reports|stem|ab2ce1aea4e02375|f2af068004b1d245|749682498d2a12fd|536393307|docs*expected_points.qmd*_quarto.yml*styles.css|t19961.8660761644s|0e114a44279f9b28|18074669|file|local|vector|||41.997||
+reports|stem|8fd7c57aa5d7f190|f2af068004b1d245|749682498d2a12fd|536393307|docs*expected_points.qmd*_quarto.yml*styles.css|t19961.9192308265s|929658c35273a2b5|13893|file|local|vector|||33.234||
 round_any|function|1f9a74510238f8e9|||||||||||||||
 score_text|function|2beaea614d9d0fbe|||||||||||||||
 seasons|object|a3a5673ed49c208e|||||||||||||||
