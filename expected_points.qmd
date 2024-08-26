@@ -1,0 +1,316 @@
+---
+title: "CFB Expected Points"
+author: "Phil Henrickson"
+---
+
+```{r}
+#| include: false
+# packages
+library(targets)
+library(dplyr)
+library(ggplot2)
+library(gt)
+library(gtExtras)
+
+# get source code
+targets::tar_source("R")
+
+# set ggplot theme
+theme_set(theme_light() + theme(legend.position = 'top', legend.title = element_blank()))
+
+# load in targets
+# game info
+tar_load(cfbd_game_info_tbl)
+
+# drives
+tar_load(cfbd_drives_tbl)
+
+# prepared plays
+tar_load(prepared_pbp)
+
+```
+
+# Expected Points
+
+I develop and explore an expected points model at the play level for evaluating college football offenses and defenses. The goal of this analysis is to place a value on offensive/defensive plays in terms of their contribution's to a team's *expected points*.
+
+The data comes from collegefootballdata.com, which has play by play data on games from 2000 to present. Each observation represents one play in a game, in which we know the team, the situation (down, time remaining), and the location on the field (yards to go, yards to reach end zone). We have information about the types of plays called as well in a text field.
+
+<!-- Due to data quality issues, I focus my analysis on the years from 2007 and onwards. -->
+
+## Sequences of Play
+
+For each play in a game, I model the probability of the next scoring event that will occur within the same half for either team. This means the analysis is not at the *drive* level, but at what I dub the *sequence* level. For any given play, the next scoring event can take on one of seven outcomes:
+
+* Touchdown (7 points)
+* Field goal (3 points)
+* Safety (2 points)
+* No Score (0 points)
+* Opponent safety (-2 points)
+* Opponent field goal (-3 points)
+* Opponent touchdown (-7 points)
+
+Suppose we have two teams, A and B, playing in a game. Team A receives the opening kickoff, drives for a few plays, and then punts. Team B takes over, which starts drive 2, and they drive for a few plays before also punting. Team A then manages to put together a drive that finally scores.
+
+```{r}
+tibble(
+  offense = c("A", "B", "A"),
+  defense = c("B", "A", "B"),
+  drive = c(1, 2, 3),
+  drive_result = c("PUNT", "PUNT", "TD"),
+  score_result = c(NA, NA, "OFFENSE TD")
+) |>
+    gt_tbl()
+```
+
+All plays on these three drives are one **sequence**. The outcome of this sequence is the points scored by Team A - if they score a touchdown, their points from this sequence is 7 (assuming for now they make the extra point). Team B's points from this sequence is -7 points.
+
+This means that each one of these play was leading up to the **Next Scoring Event** of Team A scoring, which was the outcome we assign to each drive (and play) in that sequence.
+
+```{r}
+tibble(
+  offense = c("A", "B", "A"),
+  defense = c("B", "A", "B"),
+  sequence = c(1, 1, 1),
+  drive = c(1, 2, 3),
+  drive_result = c("PUNT", "PUNT", "TD"),
+  score_result = c(NA, NA, "OFFENSE TD"),
+  next_score_event = c("team A TD", "team A TD", "team A TD")
+) |>
+    gt_tbl()
+```
+
+If the team on offense drives down and scores a TD/FG, this will end the sequence. If the team on offense does not score but punts or turns the ball over, the sequence will continue with the other team now on offense. The sequence will continue until either one team scores, or the half comes to an end. From this, a sequence begins at kickoff and ends at the next kick off. When Team A kicks off to Team B to start drive 4, we start our next sequence, which will end either with one team scoring or at the end of the half.
+
+Why model the outcome of sequences rather than individual drives? Individual plays have the potential to affect both team's chances of scoring, positively or negatively, and we want our model to directly capture this. If an offense turns the ball over at midfield, they are not only hurting their own chances of scoring, they are increasing the other team's chance of scoring. The value of a play in terms of expected points is function of how both team's probabilities are affected by the outcome.
+
+## Defining Expected Points
+
+A team's expected points is sum of the probability of each possible scoring event multiplied by the points of that event. For this analysis, I assume that touchdowns equate to 7 rather than 6 points, assuming that extra points will be made. I can later bake in the actual probability of making extra points, but this will be a simplification for now.
+
+For a given play $i$ for Team $A$ facing Team $B$, we can compute Team A's expected points using the following:
+
+\begin{align*}
+{Expected Points}_A = \\
+Pr(TD_A)*7 \\ 
++ Pr(FG_A)*3 \\
++ Pr(Safety_A)*2 \\
++ Pr(No Score)*0 \\ 
++ Pr(Safety_B)*-2 \\ 
++ Pr(FG_B) * -3\\ 
++ Pr(TD_B) * -7
+\end{align*}
+
+How do we get the probabilities of each scoring event? We learn these from historical data by using a model - I train a multinomial logistic regression model on many seasons worth of college football plays to learn how situations on the field affect the probability of the next scoring event.
+
+## Next Scoring Event
+
+The outcome for our analysis is the **next_score_event**. Each play in a given sequence contributes to the eventual outcome of the sequence. Here we can see an example of one game and its drives:
+
+```{r drives in one game}
+
+sample_games = tibble(game_id = 322520245)
+
+cfbd_drives_tbl |>
+    inner_join(sample_games) |>
+    select(season, game_id, offense, defense, drive_number, drive_result) |>
+    gt_tbl()
+
+```
+
+For this game, we can filter to the plays that took place in the lead up to first score event. In this case, the first sequence included one drive and ended when Texas A&M kicked a field goal.
+
+```{r plays from drive one}
+#| class: scroll
+# function to display plays in a drive
+drive_plays_tbl <- function(data) {
+
+    data |>
+    select(season, game_id, offense, defense, drive_number, down, distance, yards_to_goal, play_text, next_score_event_offense) |>
+    group_by(season, game_id, drive_number) |>
+    gt_tbl() |>
+    gt::cols_label(next_score_event_offense = "next_score_event") |>
+    gt::cols_align(columns = c("offense", "defense", "down", "distance", "yards_to_goal"), align = "center")
+}
+
+# show first drive
+prepared_pbp |>
+  inner_join(sample_games) |>
+  filter(drive_number == 1) |>
+  drive_plays_tbl()
+
+```
+
+If we look at another sequence in the second half (drives 9 through), we can see there were multiple drives before a team was able to score in that sequence. 
+
+Note that the next scoring event is always defined from the perspective of the offense.
+
+```{r plays from multiple drives}
+#| class: scroll
+prepared_pbp |>
+    inner_join(sample_games) |>
+    filter(drive_number > 8 & drive_number < 15) |>
+    drive_plays_tbl()
+
+```
+
+## Illustrating Expected Points
+
+Our goal is to understand how individual plays contribute to a team's **expected points**, or the average points a team should *expect* to score *on average* given their situation (down, time, possession).
+
+For instance, in the first drive of the Texas A&M-Florida game in 2012, Texas A&M received the ball at their own 25 yard line to open the game.
+
+The simplest intuition of expected points is to ask, for teams starting at the 25 yard line at the beginning of a game, how many points do they typically go on to score? The answer is to look at all starting drives with 75 yards to go and see what the eventual next scoring event was for each of these plays - we take the average of all of the points that followed from this situation.
+
+```{r}
+prepared_pbp |>
+  filter(yards_to_goal == 75 & drive_number == 1) |>
+  group_by(next_score_event_offense, yards_to_goal, drive_number) |>
+  count(sort = T) |>
+  ungroup() |>
+  mutate(prop = n / sum(n)) |>
+  mutate_if(is.numeric, round, 3) |>
+  gt_tbl()
+
+prepared_pbp |>
+  filter(yards_to_goal == 75 & drive_number == 1) |>
+  summarize(
+    expected_points = round(mean(next_score_event_offense_diff), 3),
+    n = n(),
+    .groups = "drop"
+  ) |>
+    gt_tbl()
+
+```
+
+In this case, this means teams with the ball at their own 25 to start the game generally obtained more points on the ensuing sequence than their opponents, so they have a slightly positive expected points.
+
+But, this is also a function of the *down*. If we look at the expected points for a team in this situation in first down vs a team in this situation for fourth down, we should see a drop in their expected points - by the time you hit fourth down, if you haven't moved from the 25, your expected points drops into the negatives, as you will now be punting the ball back to your opponent and it becomes more probable that they score than you.
+
+```{r}
+prepared_pbp |>
+    filter(yards_to_goal == 75 & drive_number == 1) |>
+    group_by(yards_to_goal, down) |>
+    summarize(
+        expected_points = mean(next_score_event_offense_diff, na.rm = T),
+        n = n(),
+        .groups = "drop"
+    ) |>
+        mutate_if(is.numeric, round, 3) |>
+        gt_tbl()
+```
+
+## Expected Point Situations
+
+The fact that expected points changes based on the situation (down, yard line, time remaining) allows us to calculate the *difference* in expected points from play to play. That is, before the ball is snapped, we ask, what is the expected points given the current situation?
+
+Then the ball is hiked and the play occurs; what is the expected points now? Did it increase or decrease? This difference in expected points from play to play, positive or negative, is what we refer to as Expected Points *Added*.
+
+For any given play, we get a sense of the expected points a team can expect from their situation. For instance, if we look at all total plays in a game, how do expected points vary as a function of a team's distance from their opponent's goal line?
+
+```{r}
+
+prepared_pbp |>
+  filter(yard_line < 100 & yard_line > 0) %>%
+  group_by(yards_to_goal) |>
+  summarize(
+    expected_points = mean(next_score_event_offense_diff, na.rm = T),
+    n = n()
+  ) %>%
+  ggplot(., aes(
+    x = yards_to_goal,
+    y = expected_points
+  )) +
+  geom_line() +
+  geom_point(aes(size = n)) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed"
+  ) +
+  scale_x_reverse()
+
+```
+
+This should make sense - if you're backed up against your own end zone, your opponent has higher expected points because they are, historically, more likely to have the next scoring event - either by gaining good field advantage after you punt or by getting a safety. We can see this if we just look at the proportion of next scoring events based on the offense's position on the field.
+
+```{r}
+prepared_pbp |>
+  filter(yard_line < 100 & yard_line > 0) %>%
+  group_by(yards_to_goal, next_score_event_offense) |>
+  count() |>
+  ggplot(aes(x=yards_to_goal, y=n, fill = next_score_event_offense))+
+  geom_col(position = 'fill')+
+  scale_x_reverse()+
+  scale_fill_viridis_d()+
+  ylab("proportion")
+
+```
+
+From this, when we see an offense move the ball up the field on a given play, we will generally see their expected points go up. The difference in expected points before the snap and after the snap is the value added (positively or negatively) by the play.
+
+But, it’s not just position on the field - it’s also about the situation. If we look at how expected points varies by the down, we should see that fourth downs have lower expected points.
+
+```{r}
+
+prepared_pbp |>
+  filter(yard_line < 100 & yard_line > 0) |>
+  group_by(yards_to_goal, down = as.character(down)) |>
+  summarize(
+    expected_points = mean(next_score_event_offense_diff, na.rm = T),
+    n = n(),
+    .groups = 'drop'
+  ) |>
+  ggplot(aes(
+    x = yards_to_goal,
+    y = expected_points,
+    color = down
+  )) +
+  geom_point(aes(size = n)) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed"
+  ) +
+  scale_x_reverse()+
+  scale_color_viridis_d()+
+  guides(size = 'none')
+```
+
+We also have other features like distance and down.
+
+```{r}
+prepared_pbp |>
+  filter(yard_line < 100 & yard_line > 0) |>
+  filter(distance <= 30, distance >=0) |>
+  group_by(down, distance, next_score_event_offense) |>
+  count() |>
+  ggplot(aes(x=distance, y=n, fill = next_score_event_offense))+
+  geom_col(position = 'fill')+
+  scale_fill_viridis_d()+
+  facet_wrap(down ~.)+
+  ylab("proportion")
+
+```
+
+And we also have info on time remaining in the half - as we might expect, the proportion of drives leading to no scoring goes up as the amount of time remaining in the half goes down.
+
+```{r}
+prepared_pbp |>
+  filter(yard_line < 100 & yard_line > 0) |>
+  group_by(
+    seconds_in_half = round_any(seconds_in_half, 5),
+    next_score_event_offense
+  ) |>
+    count() |>
+    ggplot(aes(x = seconds_in_half, y = n, fill = next_score_event_offense)) +
+    geom_col(position = "fill") +
+    scale_fill_viridis_d() +
+    ylab("proportion")+
+    scale_x_reverse()
+
+```
+
+We use all of this historical data to learn the expected points from a given situation, then look at the difference in expected points from play to play - this is the intuition behind how we will value individual plays, which we can then roll up to the offense/defense/game/season level.
+
+# Modeling Expected Points
+
+How do these various features like down, distance, yards to goal, and time remaining affect the probability of the next scoring event? I use a model to learn this relationship from historical plays.

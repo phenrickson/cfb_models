@@ -32,8 +32,6 @@ vignettes/*.pdf
 *.knit.md
 # R Environment Variables
 .Renviron
-# pkgdown site
-docs/
 # translation temp files
 po/*~
 # RStudio Connect folder
@@ -42,3 +40,6 @@ rsconnect/
 # R package: bookdown caching files
 /*_files/
 # End of https://www.toptal.com/developers/gitignore/api/r
+
+/.quarto/
+/docs/

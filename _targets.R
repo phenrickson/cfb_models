@@ -36,11 +36,13 @@ tar_option_set(
   ),
   controller =
   crew_controller_local(workers = 7),
-  repository = "gcp"
+  repository = "gcp",
+  storage = "worker",
+  retrieval = "worker"
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
-tar_source("R")
+suppressMessages({tar_source("R")})
 # tar_source("other_functions.R") # Source other scripts as needed.
 
 # running over seasons
@@ -129,7 +131,7 @@ list(
         season = seasons,
         type = c("regular", "postseason")
       )
-      
+
       map2_df(
         .x = tmp$season,
         .y = tmp$type,
@@ -148,7 +150,7 @@ list(
         season = seasons,
         type = c("regular", "postseason")
       )
-      
+
       map2_df(
         .x = tmp$season,
         .y = tmp$type,
@@ -306,14 +308,26 @@ list(
     pattern = map(cfbd_season_week_games),
     error = "null"
   ),
+  # filter to only relevant
+  tar_target(
+    filtered_pbp,
+    cfbd_pbp_data_tbl |>
+    # filter to only games with both fbs divisions
+    inner_join(
+      cfbd_game_info_tbl |>
+      filter(home_division == "fbs" | away_division == "fbs")
+    ) |>
+    # filter to games after 2005
+    filter(season > 2005)
+  ),
   # prepare pbp data using custom functions
   tar_target(
     prepared_pbp,
-    cfbd_pbp_data_tbl |>
-    filter(season > 2005) |>
+    filtered_pbp |>
     filter_plays() |>
     prepare_pbp() |>
-    add_score_events()
+    add_score_events(),
+    deployment = "main"
   ),
   # prepare games for use in elo functions
   tar_target(
@@ -359,5 +373,10 @@ list(
     elo_games,
     prepared_games |>
     tune_elo_ratings(params = elo_best_params)
+  ),
+  # quarto
+  tar_quarto(
+    reports,
+    quiet = F
   )
 )
