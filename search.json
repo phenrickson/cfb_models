@@ -81,7 +81,28 @@
     "href": "index.html",
     "title": "College Football",
     "section": "",
-    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nGame Predictions\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
+    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nGame Predictions\nTeam Rankings\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
+  },
+  {
+    "objectID": "season_report.html",
+    "href": "season_report.html",
+    "title": "CFB Team Efficiency and Rankings",
+    "section": "",
+    "text": "The following table displays my current rankings for teams based on opponent adjusted estimates of team efficiency.\n\n\n\n\n\n\nAbout the Table\n\n\n\n\n\nTeam Score refers to the team’s expected margin of victory against an average FBS team, as estimated by my game prediction model and measures of team efficiency.\n∆ Score indicates the change in a team’s score from the previous week. Positive values indicate my model rated the team higher after the previous week’s performance; negative values indicate my model rates the team lower.\nOffensive/Defensive Efficiency refers to the team’s expected points added per play on offense and defense, adjusted for opponent strength.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow has the top 25 changed over the course of the season?\n\n\n\n\n\n\n\n\n\n\n\n\nHow have team scores changed during the season? The following plots display estimated team scores for each week of the season by conference. Click on a conference to view how team scores have changed during the season.\n\nSECBig TenBig 12ACCMountain WestAmerican AthleticConference USASun BeltMAC"
+  },
+  {
+    "objectID": "season_report.html#top-25-by-week",
+    "href": "season_report.html#top-25-by-week",
+    "title": "CFB Team Efficiency and Rankings",
+    "section": "",
+    "text": "How has the top 25 changed over the course of the season?"
+  },
+  {
+    "objectID": "season_report.html#team-scores",
+    "href": "season_report.html#team-scores",
+    "title": "CFB Team Efficiency and Rankings",
+    "section": "",
+    "text": "How have team scores changed during the season? The following plots display estimated team scores for each week of the season by conference. Click on a conference to view how team scores have changed during the season.\n\nSECBig TenBig 12ACCMountain WestAmerican AthleticConference USASun BeltMAC"
   },
   {
     "objectID": "estimating_efficiency.html",
