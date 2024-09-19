@@ -60,7 +60,7 @@
     "href": "predicting_games.html",
     "title": "Predicting College Football Games",
     "section": "",
-    "text": "This page displays predictions for games in the 4 college football season season. These predictions come from a model built on historical college football play by play and game data in order to simulate upcoming games. All data is from collegefootballdata.com."
+    "text": "This page displays predictions for upcoming games in the 2024 college football season. These predictions come from a model built on historical college football play by play and game data in order to simulate upcoming games. All data is from collegefootballdata.com. Any mistakes are my own."
   },
   {
     "objectID": "predicting_games.html#betting-lines",
