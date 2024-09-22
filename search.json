@@ -56,34 +56,6 @@
     "text": "3.2 Examining Games\nOnce we’ve scored plays, we can examine individual games to examine which plays had the biggest impact in terms of expected points. Here I’ll examine a few games, chosen completely at random and in no way influenced by my fandom.\n\n3.2.1 Texas A&M - Alabama 2012\nKind of interesting - this game is remembered for a lot of plays by Johnny Manziel, but the most impactful plays in the game in terms of expected points changes were actually turnovers forced by the A&M defense.\n\n\nShow the code\npbp_fit |&gt;\n  augment(\n    prepared_pbp |&gt;\n      filter(game_id == 323150333)\n  ) |&gt;\n  calculate_expected_points() |&gt;\n  calculate_points_added() |&gt;\n  top_plays_by_game() |&gt;\n  plays_points_tbl()\n\n\n\n\n\n  \n    \n      offense\n      defense\n      period\n      ytg\n      down\n      distance\n      play_text\n      ep_pre\n      ep_post\n      ep_added\n    \n  \n  \n    \n      2012 - 323150333\n    \n    Alabama\nTexas A&M\n4\n54\n3\n6\nAJ McCarron pass complete to Amari Cooper for 54 yards for a TOUCHDOWN.\n0.929\n—\n6.071\n    Alabama\nTexas A&M\n4\n38\n1\n10\nT.J. Yeldon rush for 8 yards to the TexAM 30, fumbled, forced by Steven Terrell, recovered by TexAM Dustin Harris, Dustin Harris for 4 yards to the TexAM 34.\n3.472\n-1.462\n-4.935\n    Alabama\nTexas A&M\n1\n52\n3\n5\nAJ McCarron pass intercepted by Sean Porter at the TexAM 43, returned for 16 yards to the Alab 41.\n1.242\n-3.365\n-4.606\n    Texas A&M\nAlabama\n4\n68\n3\n8\nJohnny Manziel pass complete to Ryan Swope for 28 yards to the Alab 25, ALABAMA penalty 15 yard Personal Foul on Ha'Sean Clinton-Dix accepted for a 1ST down.\n-0.157\n4.393\n4.550\n    Alabama\nTexas A&M\n4\n88\n1\n18\nAJ McCarron pass complete to Amari Cooper for 50 yards to the TexAM 38 for a 1ST down.\n-0.660\n3.472\n4.133\n    Texas A&M\nAlabama\n1\n10\n3\n10\nJohnny Manziel pass complete to Ryan Swope for 10 yards for a TOUCHDOWN.\n3.296\n—\n3.704\n    Texas A&M\nAlabama\n1\n59\n3\n6\nJohnny Manziel rush for 32 yards to the Alab 27 for a 1ST down.\n0.718\n4.288\n3.570\n    Alabama\nTexas A&M\n2\n2\n3\n2\nEddie Lacy rush for 2 yards for a TOUCHDOWN.\n3.714\n—\n3.286\n    Alabama\nTexas A&M\n4\n60\n1\n10\nAJ McCarron pass complete to Kenny Bell for 54 yards to the TexAM 6 for a 1ST down.\n1.178\n4.437\n3.259\n    Texas A&M\nAlabama\n4\n24\n1\n10\nJohnny Manziel pass complete to Malcome Kennedy for 24 yards for a TOUCHDOWN.\n4.172\n—\n2.828\n  \n  \n  \n\n\n\n\n\n\n3.2.2 Texas A&M - Alabama 2021\nAnother game chosen completely at random.\n\n\nShow the code\npbp_fit |&gt;\n  augment(\n    prepared_pbp |&gt;\n      filter(game_id == 401282103)\n  ) |&gt;\n  calculate_expected_points() |&gt;\n  calculate_points_added() |&gt;\n  top_plays_by_game(var = predicted_points_added, n =10) |&gt;\n  plays_points_tbl()\n\n\n\n\n\n  \n    \n      offense\n      defense\n      period\n      ytg\n      down\n      distance\n      play_text\n      ep_pre\n      ep_post\n      ep_added\n    \n  \n  \n    \n      2021 - 401282103\n    \n    Alabama\nTexas A&M\n1\n56\n3\n1\nBrian Robinson Jr. run for 1 yd to the Alab 45 Brian Robinson Jr. fumbled, recovered by TexAM , return for 4 yds to the Alab 41\n2.240\n-3.582\n-5.821\n    Texas A&M\nAlabama\n3\n81\n4\n4\nNik Constantinou punt blocked by Ja'Corey Brooks blocked by Ja'Corey Brooks for a TD, (Will Reichard KICK)\n-2.385\n—\n-4.615\n    Texas A&M\nAlabama\n4\n25\n1\n10\nZach Calzada pass complete to Ainias Smith for 25 yds for a TD, (Seth Small KICK)\n2.839\n—\n4.161\n    Texas A&M\nAlabama\n2\n74\n1\n10\nZach Calzada pass intercepted DeMarcco Hellams return for no gain to the TexAM 40\n0.764\n-3.396\n-4.160\n    Alabama\nTexas A&M\n2\n1\n3\n1\nBryce Young pass intercepted Demani Richardson return for 3 yds to the TexAM 3\n5.502\n1.451\n-4.051\n    Alabama\nTexas A&M\n3\n29\n2\n7\nBryce Young pass complete to Jameson Williams for 29 yds for a TD, (Will Reichard KICK)\n3.775\n—\n3.225\n    Texas A&M\nAlabama\n2\n77\n2\n12\nZach Calzada pass complete to Devon Achane for 33 yds to the Alab 44 for a 1ST down\n-0.270\n2.836\n3.106\n    Alabama\nTexas A&M\n3\n75\n2\n10\nBrian Robinson Jr. run for 24 yds to the Alab 49 for a 1ST down\n-0.152\n2.844\n2.996\n    Texas A&M\nAlabama\n2\n15\n1\n10\nIsaiah Spiller run for 15 yds for a TD, (Seth Small KICK)\n4.050\n—\n2.950\n    Alabama\nTexas A&M\n3\n51\n3\n9\nBryce Young pass complete to Brian Robinson Jr. for 16 yds to the TexAM 35 for a 1ST down\n0.711\n3.639\n2.927\n  \n  \n  \n\n\n\n\n\n\n3.2.3 Auburn - Georgia 2013\n\n\nShow the code\npbp_fit |&gt;\n  augment(\n    prepared_pbp |&gt;\n      filter(game_id == 333200002)\n  ) |&gt;\n  calculate_expected_points() |&gt;\n  calculate_points_added() |&gt;\n  top_plays_by_game(var = predicted_points_added, n = 10) |&gt;\n  plays_points_tbl()\n\n\n\n\n\n  \n    \n      offense\n      defense\n      period\n      ytg\n      down\n      distance\n      play_text\n      ep_pre\n      ep_post\n      ep_added\n    \n  \n  \n    \n      2013 - 333200002\n    \n    Auburn\nGeorgia\n4\n73\n4\n18\nNick Marshall pass complete to Ricardo Louis for 73 yards for a TOUCHDOWN.\n-0.301\n—\n7.301\n    Georgia\nAuburn\n4\n5\n4\n5\nAaron Murray rush for 5 yards for a TOUCHDOWN.\n2.087\n—\n4.913\n    Auburn\nGeorgia\n1\n68\n4\n4\nGEORGIA penalty 15 yard Personal Foul on John Taylor accepted.\n-1.318\n2.854\n4.172\n    Auburn\nGeorgia\n2\n24\n1\n10\nTre Mason rush for 24 yards for a TOUCHDOWN.\n3.357\n—\n3.643\n    Auburn\nGeorgia\n3\n51\n3\n4\nNick Marshall pass complete to Ricardo Louis for 44 yards to the Geo 7 for a 1ST down.\n1.535\n5.092\n3.558\n    Georgia\nAuburn\n4\n24\n1\n10\nAaron Murray pass complete to Arthur Lynch for 24 yards for a TOUCHDOWN.\n3.690\n—\n3.310\n    Georgia\nAuburn\n2\n75\n1\n10\nAaron Murray pass complete to Michael Bennett for 42 yards to the Aub 33 for a 1ST down.\n0.683\n3.973\n3.290\n    Georgia\nAuburn\n3\n83\n1\n10\nAaron Murray pass complete to Rantavious Wooten for 40 yards to the Aub 43 for a 1ST down.\n0.189\n3.467\n3.278\n    Georgia\nAuburn\n3\n16\n2\n10\nAaron Murray rush for 16 yards for a TOUCHDOWN.\n3.930\n—\n3.070\n    Auburn\nGeorgia\n1\n21\n2\n10\nCorey Grant rush for 21 yards for a TOUCHDOWN.\n3.946\n—\n3.054\n  \n  \n  \n\n\n\n\n\n\n3.2.4 Michigan State - Michigan, 2015 (WOAH)\n\n\nShow the code\npbp_fit |&gt;\n  augment(\n    prepared_pbp |&gt;\n      filter(game_id == 400763542)\n  ) |&gt;\n  calculate_expected_points() |&gt;\n  calculate_points_added() |&gt;\n  top_plays_by_game(var = predicted_points_added, n = 10) |&gt;\n  plays_points_tbl()\n\n\n\n\n\n  \n    \n      offense\n      defense\n      period\n      ytg\n      down\n      distance\n      play_text\n      ep_pre\n      ep_post\n      ep_added\n    \n  \n  \n    \n      2015 - 400763542\n    \n    Michigan\nMichigan State\n4\n47\n4\n2\nBlake O'Neill run for a loss of 15 yards Blake O'Neill fumbled, recovered by MchSt Jalen Watts-Jackson  , return for 38 yds\n0.273\n—\n-7.273\n    Michigan State\nMichigan\n4\n75\n1\n10\nConnor Cook pass complete to Trevon Pendleton for 74 yds to the Mich 1 for a 1ST down\n0.776\n6.437\n5.660\n    Michigan\nMichigan State\n1\n82\n4\n19\nBlake O'Neill punt for 80 yds, downed at the MchSt 2\n-3.311\n1.266\n4.577\n    Michigan State\nMichigan\n1\n77\n3\n12\nConnor Cook pass complete to Aaron Burbridge for 27 yds to the 50 yard line for a 1ST down\n-1.769\n2.599\n4.368\n    Michigan\nMichigan State\n3\n64\n3\n9\nJake Rudock pass complete to Amara Darboh for 32 yds to the MchSt 32 for a 1ST down\n-0.094\n4.056\n4.150\n    Michigan\nMichigan State\n4\n69\n3\n11\nJake Rudock pass complete to Amara Darboh for 24 yds to the MchSt 45 for a 1ST down\n-0.611\n3.379\n3.989\n    Michigan State\nMichigan\n3\n30\n2\n8\nConnor Cook pass complete to Macgarrett Kings Jr. for 30 yds for a TD, (Michael Geiger KICK)\n3.583\n—\n3.417\n    Michigan State\nMichigan\n1\n74\n3\n10\nConnor Cook pass complete to Aaron Burbridge for 13 yds to the MchSt 39 for a 1ST down\n-1.177\n2.066\n3.244\n    Michigan State\nMichigan\n1\n51\n3\n18\nMICHIGAN Penalty, Defensive Holding (Jabrill Peppers) to the Mich 41 for a 1ST down\n0.563\n3.607\n3.044\n    Michigan State\nMichigan\n1\n28\n4\n8\nConnor Cook pass incomplete to Aaron Burbridge\n1.615\n-1.254\n-2.869"
   },
   {
-    "objectID": "predicting_games.html",
-    "href": "predicting_games.html",
-    "title": "Predicting College Football Games",
-    "section": "",
-    "text": "This page displays predictions for upcoming games in the 2024 college football season. These predictions come from a model built on historical college football play by play and game data in order to simulate upcoming games. All data is from collegefootballdata.com. Any mistakes are my own."
-  },
-  {
-    "objectID": "predicting_games.html#betting-lines",
-    "href": "predicting_games.html#betting-lines",
-    "title": "Predicting College Football Games",
-    "section": "Betting Lines",
-    "text": "Betting Lines\nHow do these predictions compare to betting lines? I compare my predicted spread against the opening spread from ESPN Bet.\n\n\n\n\n\n\n\n\n\nThe following table displays my prediction for each game compared to opening betting lines from various providers."
-  },
-  {
-    "objectID": "predicting_games.html#against-the-spread",
-    "href": "predicting_games.html#against-the-spread",
-    "title": "Predicting College Football Games",
-    "section": "Against the Spread",
-    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      .metric\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\naccuracy\n0.558\n0.535\n0.506\n    2024\n2\naccuracy\n0.521\n0.529\n0.449\n    2024\n3\naccuracy\n0.462\n0.538\n0.460\n    2024\n4\naccuracy\n0.537\n0.528\n0.537\n  \n  \n  \n\n\n\n\nThe following table displays my model’s predictions to date against betting lines."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "College Football",
-    "section": "",
-    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nGame Predictions\nTeam Rankings\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
-  },
-  {
     "objectID": "season_report.html",
     "href": "season_report.html",
     "title": "CFB Team Efficiency and Rankings",
@@ -103,6 +75,34 @@
     "title": "CFB Team Efficiency and Rankings",
     "section": "",
     "text": "How have team scores changed during the season? The following plots display estimated team scores for each week of the season by conference. Click on a conference to view how team scores have changed during the season.\n\nSECBig TenBig 12ACCMountain WestAmerican AthleticConference USASun BeltMAC"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "College Football",
+    "section": "",
+    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nGame Predictions\nTeam Rankings\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
+  },
+  {
+    "objectID": "predicting_games.html",
+    "href": "predicting_games.html",
+    "title": "Predicting College Football Games",
+    "section": "",
+    "text": "This page displays predictions for upcoming games in the 2024 college football season. These predictions come from a model built on historical college football play by play and game data in order to simulate upcoming games. All data is from collegefootballdata.com. Any mistakes are my own."
+  },
+  {
+    "objectID": "predicting_games.html#betting-lines",
+    "href": "predicting_games.html#betting-lines",
+    "title": "Predicting College Football Games",
+    "section": "Betting Lines",
+    "text": "Betting Lines\nHow do these predictions compare to betting lines? I compare my predicted spread against the opening spread from ESPN Bet.\n\n\n\n\n\n\n\n\n\nThe following table displays my prediction for each game compared to opening betting lines from various providers."
+  },
+  {
+    "objectID": "predicting_games.html#against-the-spread",
+    "href": "predicting_games.html#against-the-spread",
+    "title": "Predicting College Football Games",
+    "section": "Against the Spread",
+    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      .metric\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\naccuracy\n0.535\n0.535\n0.506\n    2024\n2\naccuracy\n0.521\n0.510\n0.436\n    2024\n3\naccuracy\n0.462\n0.519\n0.460\n    2024\n4\naccuracy\n0.556\n0.541\n0.531\n  \n  \n  \n\n\n\n\nThe following table displays my model’s prediction in previous weeks against betting lines."
   },
   {
     "objectID": "estimating_efficiency.html",
