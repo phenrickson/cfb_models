@@ -74,7 +74,7 @@
     "href": "predicting_games.html#against-the-spread",
     "title": "Predicting College Football Games",
     "section": "Against the Spread",
-    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      .metric\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\naccuracy\n0.558\n0.535\n0.506\n    2024\n2\naccuracy\n0.521\n0.529\n0.449\n    2024\n3\naccuracy\n0.462\n0.538\n0.460\n  \n  \n  \n\n\n\n\nThe following table displays my model’s predictions to date against betting lines."
+    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      .metric\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\naccuracy\n0.558\n0.535\n0.506\n    2024\n2\naccuracy\n0.521\n0.529\n0.449\n    2024\n3\naccuracy\n0.462\n0.538\n0.460\n    2024\n4\naccuracy\n0.537\n0.528\n0.537\n  \n  \n  \n\n\n\n\nThe following table displays my model’s predictions to date against betting lines."
   },
   {
     "objectID": "index.html",
