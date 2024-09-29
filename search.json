@@ -102,7 +102,7 @@
     "href": "predicting_games.html#against-the-spread",
     "title": "Predicting College Football Games",
     "section": "Against the Spread",
-    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\n23-20 (0.535)\n23-20 (0.535)\n40-39 (0.506)\n    2024\n2\n25-23 (0.521)\n26-25 (0.510)\n34-44 (0.436)\n    2024\n3\n24-28 (0.462)\n27-25 (0.519)\n29-34 (0.460)\n    2024\n4\n30-24 (0.556)\n33-28 (0.541)\n34-30 (0.531)\n    2024\noverall\n102-95 (0.518)\n109-98 (0.527)\n137-147 (0.482)\n  \n  \n  \n\n\n\n\nThe following table displays my model’s prediction in previous weeks against betting lines."
+    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\n23-20 (0.535)\n23-20 (0.535)\n40-39 (0.506)\n    2024\n2\n25-23 (0.521)\n26-25 (0.510)\n34-44 (0.436)\n    2024\n3\n24-28 (0.462)\n27-25 (0.519)\n29-34 (0.460)\n    2024\n4\n30-24 (0.556)\n33-28 (0.541)\n34-30 (0.531)\n    2024\n5\n23-29 (0.442)\n25-28 (0.472)\n25-30 (0.455)\n    2024\noverall\n125-124 (0.502)\n134-126 (0.515)\n162-177 (0.478)\n  \n  \n  \n\n\n\n\nThe following table displays my model’s prediction in previous weeks against betting lines."
   },
   {
     "objectID": "estimating_efficiency.html",
