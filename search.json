@@ -77,6 +77,20 @@
     "text": "How have team scores changed during the season? The following plots display estimated team scores for each week of the season by conference. Click on a conference to view how team scores have changed during the season.\n\nSECBig TenBig 12ACCMountain WestAmerican AthleticConference USASun BeltMAC"
   },
   {
+    "objectID": "season_report.html#offensedefense",
+    "href": "season_report.html#offensedefense",
+    "title": "CFB Team Efficiency and Rankings",
+    "section": "Offense/Defense",
+    "text": "Offense/Defense\nThe following plot displays all FBS teams based on their estimated offensive/defensive efficiency for the current season to date."
+  },
+  {
+    "objectID": "season_report.html#passrush",
+    "href": "season_report.html#passrush",
+    "title": "CFB Team Efficiency and Rankings",
+    "section": "Pass/Rush",
+    "text": "Pass/Rush\nI also measure each team’s efficiency based on the play type, estimating (opponent adjusted) offensive/defensive efficiency when running and passing.\nThe following table displays all FBS teams based on their estimated efficiency for passing/rushing on both sides of the ball."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "College Football",
