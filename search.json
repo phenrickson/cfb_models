@@ -95,14 +95,14 @@
     "href": "predicting_games.html#betting-lines",
     "title": "Predicting College Football Games",
     "section": "Betting Lines",
-    "text": "Betting Lines\nHow do these predictions compare to betting lines? I compare my predicted spread against the opening spread from ESPN Bet.\n\n\n\n\n\n\n\n\n\nThe following table displays my prediction for each game compared to opening betting lines from various providers."
+    "text": "Betting Lines\nHow do these predictions compare to betting lines? I compare my predicted spread against the spread from ESPN Bet.\n\n\n\n\n\n\n\n\n\nThe following table displays my prediction for each game compared to betting lines from various providers."
   },
   {
     "objectID": "predicting_games.html#against-the-spread",
     "href": "predicting_games.html#against-the-spread",
     "title": "Predicting College Football Games",
     "section": "Against the Spread",
-    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n  \n    \n      season\n      week\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\n23-20 (0.535)\n23-20 (0.535)\n40-39 (0.506)\n    2024\n2\n25-23 (0.521)\n26-25 (0.510)\n34-44 (0.436)\n    2024\n3\n24-28 (0.462)\n27-25 (0.519)\n29-34 (0.460)\n    2024\n4\n30-24 (0.556)\n33-28 (0.541)\n34-30 (0.531)\n    2024\n5\n23-29 (0.442)\n25-28 (0.472)\n25-30 (0.455)\n    2024\noverall\n125-124 (0.502)\n134-126 (0.515)\n162-177 (0.478)\n  \n  \n  \n\n\n\n\nThe following table displays my model’s prediction in previous weeks against betting lines."
+    "text": "Against the Spread\nHow has the model performed against the spread? I compare my model’s predictions against betting lines from various providers.\n\n\n\n\n\n\nA Note on Assessment\n\n\n\n\n\nEarly versions of this report used the opening betting line from providers; I have changed this to base the assessment around the final betting line.\n\n\n\n\n\n\n\n\n  \n    \n      season\n      week\n      Bovada\n      DraftKings\n      ESPN Bet\n    \n  \n  \n    2024\n1\n23-20 (0.535)\n22-21 (0.512)\n40-39 (0.506)\n    2024\n2\n24-25 (0.490)\n25-26 (0.490)\n39-39 (0.500)\n    2024\n3\n26-26 (0.500)\n23-29 (0.442)\n30-33 (0.476)\n    2024\n4\n28-26 (0.519)\n36-25 (0.590)\n34-30 (0.531)\n    2024\n5\n24-28 (0.462)\n25-29 (0.463)\n29-26 (0.527)\n    2024\noverall\n125-125 (0.500)\n131-130 (0.502)\n172-167 (0.507)\n  \n  \n  \n\n\n\n\nThe following table displays my model’s prediction in previous weeks against betting lines."
   },
   {
     "objectID": "estimating_efficiency.html",
