@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://phenrickson.github.io/cfb_models/expected_points.html</loc>
-    <lastmod>2024-11-25T15:03:28.667Z</lastmod>
-  </url>
-  <url>
-    <loc>https://phenrickson.github.io/cfb_models/season_report.html</loc>
-    <lastmod>2024-11-25T15:03:28.671Z</lastmod>
-  </url>
-  <url>
     <loc>https://phenrickson.github.io/cfb_models/team_report.html</loc>
-    <lastmod>2024-11-25T15:03:28.671Z</lastmod>
-  </url>
-  <url>
-    <loc>https://phenrickson.github.io/cfb_models/index.html</loc>
-    <lastmod>2024-11-25T15:03:28.667Z</lastmod>
-  </url>
-  <url>
-    <loc>https://phenrickson.github.io/cfb_models/predicting_games.html</loc>
-    <lastmod>2024-11-25T15:03:28.667Z</lastmod>
+    <lastmod>2024-12-02T00:29:47.478Z</lastmod>
   </url>
   <url>
     <loc>https://phenrickson.github.io/cfb_models/estimating_efficiency.html</loc>
-    <lastmod>2024-11-25T15:03:28.667Z</lastmod>
+    <lastmod>2024-12-02T00:29:47.474Z</lastmod>
+  </url>
+  <url>
+    <loc>https://phenrickson.github.io/cfb_models/expected_points.html</loc>
+    <lastmod>2024-12-02T00:29:47.474Z</lastmod>
+  </url>
+  <url>
+    <loc>https://phenrickson.github.io/cfb_models/index.html</loc>
+    <lastmod>2024-12-02T00:29:47.478Z</lastmod>
+  </url>
+  <url>
+    <loc>https://phenrickson.github.io/cfb_models/predicting_games.html</loc>
+    <lastmod>2024-12-02T00:29:47.478Z</lastmod>
+  </url>
+  <url>
+    <loc>https://phenrickson.github.io/cfb_models/season_report.html</loc>
+    <lastmod>2024-12-02T00:29:47.478Z</lastmod>
   </url>
 </urlset>
