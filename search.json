@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "team_report.html",
-    "href": "team_report.html",
-    "title": "CFB Team Ratings",
+    "objectID": "simulating_postseason.html",
+    "href": "simulating_postseason.html",
+    "title": "College Football Postseason Predictions",
     "section": "",
-    "text": "1 About\nThis report displays estimates for Wisconsin’s college football team from 2011 to present. These estimates are based on play by data using an (opponent adjusted) predicted points per play model and a game prediction model.\n\n\n2 Team Rating by Season\nHow has Wisconsin performed since 2011?\nI estimate an overall rating for each team based on play by play data from each season. A team’s rating indicates their estimated margin of victory against an average FBS opponent.\n\n\n\n\n\n\n\n\n\nA team’s overall rating is a function of their offensive, defensive, and special teams ratings, which I estimate for each team in each season. These ratings are based on expected points - on average, how many points did the team typically generate per play while on offense or defense?\nI additionally estimate a team’s performance when passing/rushing on offense, or defending the pass/rush on defense.\n\nOverall EfficiencyPass/Rush Efficiency\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe following (interactive) tables show my estimates at the season level for the selected team, along with their ranking in each category in parentheses.\n\nOverall Efficiency by SeasonPass/Rush Efficiency by Season\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3 Team Rating by Week\nHow has a team performed over the course of a season?\nI estimate every team’s performance after each full week of every season using play by play data from that week and previous weeks, weighting recent plays more heavily than older plays. The resulting estimates are at the weekly level can be used to monitor a team’s efficiency during a season.\nAs before, I estimate an overall rating for each team, indicating their estimated margin of victory against an average FBS opponent.\n\nCurrent SeasonLast 5 SeasonsAll Seasons\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall Efficiency by WeekPass/Rush Efficiency by Week\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe following tables show my estimates at the weekly level for the selected team from the current season, along with their ranking in each category in parentheses.\n\nTeam Efficiency 2024Pass/Rush Efficiency 2024"
+    "text": "The following predictions come from a game prediction model I trained on historical college football games. The inputs into the game prediction model are team level measures of offensive/defensive/special teams efficiency, which I estimate from play by play data. I simulate each game thousands of times in order to estimate the home team’s win probability and expected margin of victory (or defeat).\n\n\n\n\n\n\nAbout the Table\n\n\n\n\n\nTeam Ratings refer to the team’s estimated efficiency on offense and defense in terms of expected points added per play, adjusted for opponent quality.\nWin Probabilities refer to the proportion of simulations in which the team won their matchup in each round.\n\n\n\n\n\n\n\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n  \n  \n    \n      2024 College Football Playoff Simulations\n    \n    \n      Results based on 10,000 simulations from team efficiency model\n    \n    \n      logo\n      team\n      \n        team rating\n      \n      \n        win probability\n      \n    \n    \n      offense\n      defense\n      Round 1\n      Quarterfinal\n      Semi-Final\n      Championship\n    \n  \n  \n    \nOhio State\n0.221\n0.245\n0.697\n0.424\n0.293\n0.173\n    \nNotre Dame\n0.216\n0.255\n0.669\n0.400\n0.275\n0.165\n    \nOregon\n0.231\n0.155\n✓\n0.442\n0.270\n0.142\n    \nGeorgia\n0.209\n0.141\n✓\n0.450\n0.285\n0.139\n    \nTexas\n0.133\n0.289\n0.755\n0.566\n0.267\n0.136\n    \nPenn State\n0.220\n0.197\n0.670\n0.491\n0.222\n0.109\n    \nIndiana\n0.192\n0.198\n0.331\n0.150\n0.088\n0.040\n    \nTennessee\n0.092\n0.225\n0.303\n0.134\n0.072\n0.032\n    \nSMU\n0.132\n0.163\n0.330\n0.203\n0.066\n0.023\n    \nArizona State\n0.151\n0.054\n✓\n0.305\n0.066\n0.017\n    \nBoise State\n0.135\n0.047\n✓\n0.306\n0.065\n0.015\n    \nClemson\n0.130\n0.120\n0.245\n0.129\n0.032\n0.010\n  \n  \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat are the most likely matchups in the playoff?\n\nQuarterfinalSemi-FinalsChampionship"
+  },
+  {
+    "objectID": "simulating_postseason.html#matchups",
+    "href": "simulating_postseason.html#matchups",
+    "title": "College Football Postseason Predictions",
+    "section": "",
+    "text": "What are the most likely matchups in the playoff?\n\nQuarterfinalSemi-FinalsChampionship"
   },
   {
     "objectID": "estimating_efficiency.html",
@@ -109,7 +116,7 @@
     "href": "index.html",
     "title": "College Football",
     "section": "",
-    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nGame Predictions\nTeam Rankings\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
+    "text": "I have a number of ongoing projects relating to college football using data from collegefootballdata.com.\nDisclaimer: Despite spending more years at Florida State (and being on campus for the 2013 championship season) while I worked on my PhD, my own college football loyalties lie with my undergraduate university, Texas A&M.\n\n1 Predictions\nPosteason Predictions\nGame Predictions\nTeam Rankings\n\n\n2 Methodology\nExpected Points\nOpponent Adjusted Team Efficiency"
   },
   {
     "objectID": "predicting_games.html",
